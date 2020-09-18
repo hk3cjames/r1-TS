@@ -101,20 +101,20 @@
     async function insert() {
       tsId = 'ts-1001'
       thash = document.form1.hash_view.value
-      thash = 1234
-
+  
       const data = { tsId, thash }
 
       const options = {
         method: 'POST',
+        mode: "no-cors",
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(data)
       }
-      const res = await fetch('/hashFile', options)
-      const disp = await res.json()
-      console.log(disp)
+      const res = await fetch('http://127.0.0.1:3100/hashFile', options)
+      // const disp = await res.json()
+      // console.log(disp)
     }
   </script>
 </body>
