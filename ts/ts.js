@@ -1,10 +1,10 @@
+var hashHex;
+
 async function digestMessage(message) {
   const msgUint8 = new TextEncoder().encode(message); // encode as (utf-8) Uint8Array
   const hashBuffer = await crypto.subtle.digest("SHA-256", msgUint8); // hash the message
   const hashArray = Array.from(new Uint8Array(hashBuffer)); // convert buffer to byte array
-  const hashHex = hashArray
-    .map((b) => b.toString(16).padStart(2, "0"))
-    .join(""); // convert bytes to hex string
+  hashHex = hashArray.map((b) => b.toString(16).padStart(2, "0")).join(""); // convert bytes to hex string
   return hashHex;
 }
 
@@ -14,6 +14,7 @@ async function generate() {
   const digestHex = await digestMessage(text);
   console.log(digestHex);
   document.form1.hash_view.value = digestHex;
+  document.form2.rbas_ack.value = " ";
 }
 
 function display_time() {
@@ -32,26 +33,17 @@ async function insert() {
     method: "POST",
 
     headers: {
-      "Content-Type": "application/json"
-    //   mode: "no-cors",
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
   };
 
-  const res = await fetch("http://127.0.0.1:3100/hashFile", options);
+  const res = await fetch("/hashFile", options);
   const disp = await res.json();
   console.log(disp);
+  console.log(disp.status);
+  result_dsp = disp.status + " - " + hashHex;
+  document.form2.rbas_ack.value = result_dsp;
+  time = disp.tick;
+  display_time(time);
 }
-// fetch('http://127.0.0.1:3100/hashFile', {
-//     method: 'POST',
-//     headers: {
-//         'Content-Type': 'application/json'
-//     },
-//     body: JSON.stringify(data)
-// }).then (res => {
-//     return res.json()
-// })
-// .then(data => console.log(data))
-// .catch(error => console.log('ERROR'))
-// }
-
