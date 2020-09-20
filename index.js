@@ -12,6 +12,7 @@ app.use(express.json({ limit: "1mb" }));
 
 var res1 = {};
 existHash = "ab1234";
+result = "next"
 app.post("/hashFile", async (req, res) => {
   rxjson = req.body;
   console.log(rxjson);
@@ -20,14 +21,10 @@ app.post("/hashFile", async (req, res) => {
   newHash = rxjson.thash;
   console.log(newHash);
   console.log(existHash);
-  if (newHash === existHash) {
-    res_status = "fail";
-  } else {
-    res_status = "success";
-    existHash = rxjson.thash;
-  }
+
   res.json({
-    status: res_status,
+    status: result,
+    hash: existHash,
     tick: time,
   });
 
@@ -42,5 +39,7 @@ app.post("/hashFile", async (req, res) => {
   res1 = await fetch("http://192.168.0.110:3100/hashFile", options)
   const disp = await res1.json();
   console.log(disp)
-
+  console.log(disp.status)
+  result = disp.status
+existHash = disp.hash
 });

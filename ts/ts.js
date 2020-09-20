@@ -42,8 +42,12 @@ async function insert() {
   const disp = await res.json();
   console.log(disp);
   console.log(disp.status);
-  result_dsp = disp.status + " - " + hashHex;
+  console.log(disp.hash);
+
+
+  result_dsp = disp.status + " - " +  disp.hash;
   document.form2.rbas_ack.value = result_dsp;
+
   time = disp.tick;
   display_time(time);
 }
