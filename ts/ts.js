@@ -13,21 +13,22 @@ async function generate() {
   console.log(text);
   const digestHex = await digestMessage(text);
   console.log(digestHex);
-  document.form1.hash_view.value = digestHex;
-  document.form2.rbas_ack.value = " ";
+  document.form2.hash_view.value = digestHex;
+  document.form3.timeDisp.value = " ";
 }
 
 function display_time() {
   var d = new Date();
   var n = d.toUTCString();
-  document.getElementById("input_time").innerHTML = n;
+  return n;
 }
 
 async function insert() {
-  tsId = "ts-1001";
-  thash = document.form1.hash_view.value;
+  tsId = "ts-1000";
+  chainId = document.form1.chainId.value;
+  thash = document.form2.hash_view.value;
 
-  const data = { tsId, thash };
+  const data = { tsId, chainId, thash };
 
   const options = {
     method: "POST",
@@ -44,10 +45,12 @@ async function insert() {
   console.log(disp.status);
   console.log(disp.hash);
 
-
   result_dsp = disp.status + " - " +  disp.hash;
-  document.form2.rbas_ack.value = result_dsp;
 
   time = disp.tick;
-  display_time(time);
+  result_dsp = display_time(time);
+
+  document.form3.timeDisp.value = result_dsp;
+  document.form1.chainId.value = document.form2.hash_view.value;
+
 }

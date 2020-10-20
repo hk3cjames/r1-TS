@@ -35,7 +35,6 @@
     }
 
     h1 {
-      font-size: 500%;
       text-align: center;
     }
 
@@ -52,30 +51,36 @@
 <body>
   <div class="bg"></div>
   <div class="main">
-    <h2>(root blockchain authentication service)
-      <h1>RBAS</h1>
-      <h1>hash input</h1>
 
-      <h3>1. text to generate hash</h3>
-      <form name="form0">
-        <textarea name="data_in" rows="20" cols="108"> </textarea>
-      </form>
-      <input class="button" type="button" value="generate" onclick="generate()" />
+    <h1>RBAS</h1>
+    <h2>(Rroot blockchain authentication service)</h2>
+    <h2>TS-1000 hash input</h2>
+    <h3>1. Chain - ID from last Block</h3>
+    <form name="form1">
+      <input class="textview" name="chainId" value = "1000"/>
+    </form>
+    <br>
 
-      <h3>2. hash to be input</h3>
-      <form name="form1">
-        <input class="textview" name="hash_view" />
-      </form>
-      <input class="button" type="button" value="insert" onclick="insert()" />
+    <h3>2. Block - text to generate hash</h3>
+    <form name="form0">
+      <textarea name="data_in" rows="20" cols="108"> </textarea>
+    </form>
+    <input class="button" type="button" value="generate" onclick="generate()" />
 
-      <h3>3. response (time inserted)</h3>
-      <form name="form2">
-        <input class="textview" name="rbas_ack" />
-      </form>
-      <p id="input_time">time input to rbas</p>
+    <h3>3. Chain - hash to next block</h3>
+    <form name="form2">
+      <input class="textview" name="hash_view" />
+    </form>
+    <br>
+    
+    <h3>4. tick/time - hash to RBAS database</h3>
+    <form name="form3">
+      <input class="textview" name="timeDisp" />
+    </form>
+    <input class="button" type="button" value="insert" onclick="insert()" />
+
   </div>
-  <script src = "ts.js">
-
+  <script src="ts.js">
   </script>
 </body>
 
