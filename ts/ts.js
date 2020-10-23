@@ -52,5 +52,6 @@ async function insert() {
 
   document.form3.timeDisp.value = result_dsp;
   document.form1.chainId.value = document.form2.hash_view.value;
+  document.form2.hash_view.value = " ";
 
 }

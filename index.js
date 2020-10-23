@@ -1,4 +1,4 @@
-// input hash from ts to PS
+// input hash from tc, upload to PS port 3100
 const express = require("express");
 const app = express();
 const fetch = require("node-fetch");
