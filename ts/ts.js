@@ -17,41 +17,25 @@ async function generate() {
   document.form3.timeDisp.value = " ";
 }
 
-function display_time() {
-  var d = new Date();
-  var n = d.toUTCString();
-  return n;
-}
-
 async function insert() {
-  tsId = "ts-1000";
+  tsId = "1000";
   chainId = document.form1.chainId.value;
-  thash = document.form2.hash_view.value;
-
-  const data = { tsId, chainId, thash };
-
+  tHash = document.form2.hash_view.value;
+  const data = { tsId, chainId, tHash };
   const options = {
     method: "POST",
-
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: {"Content-Type": "application/json" },
     body: JSON.stringify(data),
   };
 
   const res = await fetch("/hashFile", options);
   const disp = await res.json();
   console.log(disp);
-  console.log(disp.status);
-  console.log(disp.hash);
 
-  result_dsp = disp.status + " - " +  disp.hash;
+  const d = new Date();
+  document.form3.timeDisp.value = d +" - "+ disp.status ;
 
-  time = disp.tick;
-  result_dsp = display_time(time);
-
-  document.form3.timeDisp.value = result_dsp;
-  document.form1.chainId.value = document.form2.hash_view.value;
+  document.form1.chainId.value = disp.nextChainId;
   document.form2.hash_view.value = " ";
 
 }

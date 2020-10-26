@@ -1,51 +1,59 @@
-// input hash from tc, upload to PS port 3100
+// input hash from ts to PS
 const express = require("express");
 const app = express();
 const fetch = require("node-fetch");
 
 app.listen(3000, () =>
-  console.log("TS listening at localhost (or 192.168.x.x):3000 for hash input"+
-  "\n"+"connect to PS at localhost:3100")
+  console.log(
+    "TS hash input at localhost:3000 for " +
+      "\n" +
+      "connect to PS at localhost:3100"
+  )
 );
 
-app.use(express.static("ts"));
-
+app.use(express.static("ts")); // output ts/index.html to :3000 get
 app.use(express.json({ limit: "1mb" }));
 
 var res1 = {};
-existHash = "to be confirm in future cycle";
-result = "next";
+currentChainId =
+  "5d1c4709ada27339c3a22c0a125708e6880c8368e0afb240bb9447d887be8eae";
+
 app.post("/hashFile", async (req, res) => {
   rxjson = req.body;
+  console.log("receive TC hash submit-form and upload to PS");
   console.log(rxjson);
 
   time = Date.now();
-  newHash = rxjson.thash;
-  console.log(newHash);
-  console.log(existHash);
 
-  res.json({
+  newChainId = rxjson.chainId;
+  if ((newChainId == currentChainId)) {
+    result = "submitted";
+    nextChain = rxjson.tHash;
+    currentChainId = nextChain
+  } else {
+    result = "error - wrong Chain ID";
+    nextChain = rxjson.chainId;
+  }
+
+  console.log("response to TC");
+  resJson = {
     status: result,
-    hash: existHash,
+    nextChainId: nextChain,
     tick: time,
-  });
+  };
+  res.json(resJson);
+  console.log(resJson);
 
-  data = rxjson;
   const options = {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(rxjson),
   };
 
   res1 = await fetch("http://127.0.0.1:3100/hashFile", options);
-  // res1 = await fetch("http://192.168.0.110:3100/hashFile", options);
-  // console.log("PS connect to PS at localhost:3100")
-
   const disp = await res1.json();
+  console.log("ready for next, completed sending to PS ");
   console.log(disp);
-  console.log(disp.status);
-  result = disp.status;
-  existHash = disp.hash;
 });

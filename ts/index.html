@@ -20,17 +20,17 @@
     }
 
     .textview {
-      width: 780px;
-      height: 40px;
-      font-size: large;
+      width: 100%;
+      height: 20%;
+      font-size: medium;
       text-align: center;
     }
 
     .button {
-      width: 100;
-      height: 40;
+      width: 20%;
+      height: 8%;
       font-size: larger;
-      margin-left: 700;
+      margin-left: 80%;
       cursor: pointer;
     }
 
@@ -57,7 +57,8 @@
     <h1>RBAS</h1>
     <h2>(Rroot blockchain authentication service)</h2>
     <h2>TS-1000 hash input</h2>
-    <h3>1. Chain - ID from last Block</h3>
+    <br>
+    <h3>1. Chain ID - generated from last Block</h3>
     <form name="form1">
       <input class="textview" name="chainId" value = "5d1c4709ada27339c3a22c0a125708e6880c8368e0afb240bb9447d887be8eae"/>
     </form>
@@ -65,17 +66,17 @@
 
     <h3>2. Block - text to generate hash</h3>
     <form name="form0">
-      <textarea name="data_in" rows="20" cols="108"  >BRAS.ps1000.ts1000</textarea>
+      <textarea name="data_in" rows="20" cols="80"  >BRAS.ps1000.ts1000</textarea>
     </form>
     <input class="button" type="button" value="generate" onclick="generate()" />
 
-    <h3>3. Chain - hash to next block</h3>
+    <h3>3. Hash - submit to RBAS data-base</h3>
     <form name="form2">
       <input class="textview" name="hash_view" />
     </form>
     <br>
     
-    <h3>4. tick/time - hash to RBAS database</h3>
+    <h3>4. Time - status</h3>
     <form name="form3">
       <input class="textview" name="timeDisp" />
     </form>
