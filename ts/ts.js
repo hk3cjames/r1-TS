@@ -18,24 +18,30 @@ async function generate() {
 }
 
 async function insert() {
-  tsId = "1000";
-  chainId = document.form1.chainId.value;
-  tHash = document.form2.hash_view.value;
-  const data = { tsId, chainId, tHash };
-  const options = {
-    method: "POST",
-    headers: {"Content-Type": "application/json" },
-    body: JSON.stringify(data),
-  };
+  inputHash = document.form2.hash_view.value;
+  inputHashLength = inputHash.length;
+  tsId = "RBAS.ps1000.ts1000";
 
-  const res = await fetch("/hashFile", options);
-  const disp = await res.json();
-  console.log(disp);
+  if (inputHashLength == 64) {
+    chainId = document.form1.chainId.value;
+    tHash = tsId;
+    const data = { tsId, chainId, tHash };
+    const options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    };
 
-  const d = new Date();
-  document.form3.timeDisp.value = d +" - "+ disp.status ;
+    const res = await fetch("/hashFile", options);
+    const disp = await res.json();
+    console.log(disp);
 
-  document.form1.chainId.value = disp.nextChainId;
-  document.form2.hash_view.value = " ";
+    const d = new Date();
+    document.form3.timeDisp.value = d + " - " + disp.status;
 
+    document.form1.chainId.value = disp.nextChainId;
+    document.form2.hash_view.value = " ";
+  } else {
+    document.form2.hash_view.value = " no valid hash ";
+  }
 }

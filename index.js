@@ -16,7 +16,7 @@ app.use(express.json({ limit: "1mb" }));
 
 var res1 = {};
 currentChainId =
-  "5d1c4709ada27339c3a22c0a125708e6880c8368e0afb240bb9447d887be8eae";
+  "9fad417d8adc848acf0d66a1dab0dadbe6544ffe94252469dff4c31913665f49";
 
 app.post("/hashFile", async (req, res) => {
   rxjson = req.body;
