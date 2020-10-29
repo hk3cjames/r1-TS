@@ -20,11 +20,11 @@ async function generate() {
 async function insert() {
   inputHash = document.form2.hash_view.value;
   inputHashLength = inputHash.length;
-  tsId = "RBAS.ps1000.ts1000";
-
+  
   if (inputHashLength == 64) {
+    tsId = "RBAS.ps1000.ts1000";
     chainId = document.form1.chainId.value;
-    tHash = tsId;
+    tHash = document.form2.hash_view.value;
     const data = { tsId, chainId, tHash };
     const options = {
       method: "POST",
