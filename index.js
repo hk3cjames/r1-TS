@@ -46,6 +46,7 @@ app.post("/hashFile", async (req, res) => {
 
   const options = {
     method: "POST",
+    timeout: 300,
     headers: {
       "Content-Type": "application/json",
     },
