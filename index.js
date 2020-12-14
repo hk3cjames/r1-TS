@@ -25,10 +25,25 @@ app.post("/hashFile", async (req, res) => {
 
   time = Date.now();
 
+  const options = {
+    method: "POST",
+    timeout: 1000,
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(rxjson),
+  };
+
+  res1 = await fetch("http://127.0.0.1:3100/hashFile", options);
+  const disp = await res1.json();
+  console.log("ready for next, completed sending to PS ");
+  console.log(disp);
+
+  nextChain = disp.nextChainId;
   newChainId = rxjson.chainId;
   if ((newChainId == currentChainId)) {
     result = "submitted";
-    nextChain = rxjson.tHash;
+
     currentChainId = nextChain
   } else {
     result = "error - wrong Chain ID";
@@ -43,18 +58,4 @@ app.post("/hashFile", async (req, res) => {
   };
   res.json(resJson);
   console.log(resJson);
-
-  const options = {
-    method: "POST",
-    timeout: 300,
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(rxjson),
-  };
-
-  res1 = await fetch("http://127.0.0.1:3100/hashFile", options);
-  const disp = await res1.json();
-  console.log("ready for next, completed sending to PS ");
-  console.log(disp);
 });
